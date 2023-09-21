@@ -1,12 +1,18 @@
 services:
-  my_service:
+  node-service:
     build: 
       context: .
       dockerfile: Dockerfile
     container_name: node-server
     image: node-server:v1
+    networks:
+      - network_cura
     command: tail -f /dev/null
     ports:
       - "3000:3000"
     volumes:
       - .:/usr/src/app
+
+networks:
+  network_cura:
+    external: true
