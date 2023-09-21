@@ -14,17 +14,19 @@ from utils.DiseaseClassFile import DiseaseClass
 from utils.utils import topNProbs
 app = FastAPI()
 
-origins = [
-    "http://localhost:80",
-]
+# origins = [
+   
+#     "http://localhost:8000",
+#     "http://localhost:80",
+# ]
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=origins,
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 
 
 
@@ -195,39 +197,39 @@ def disease_prediction(inp: DiseaseClass):
 
 
 
-@app.get("/")
-def index():
-    return FileResponse("./build/index.html")
+# @app.get("/")
+# def index():
+#     return FileResponse("./build/index.html")
 
-@app.get("/disease_prediction")
-def index():
-    return FileResponse("./build/index.html")
+# @app.get("/disease_prediction")
+# def index():
+#     return FileResponse("./build/index.html")
 
-@app.get("/diabetes_prediction")
-def index():
-    return FileResponse("./build/index.html")
+# @app.get("/diabetes_prediction")
+# def index():
+#     return FileResponse("./build/index.html")
 
-@app.get("/heart_prediction")
-def index():
-    return FileResponse("./build/index.html")
+# @app.get("/heart_prediction")
+# def index():
+#     return FileResponse("./build/index.html")
 
-@app.get("/{anypath}")
-def index():
-    return HTMLResponse(
-        status_code=HTTP_404_NOT_FOUND,
-        content="""<html>
-            <head>
-                <title>Not Found</title>
-            </head>
-            <body>
-                <h1>404 Not Found</h1>
-                <p>The requested URL was not found on the server.</p>
-            </body>
-        </html>""",
-    )
+# @app.get("/{anypath}")
+# def index():
+#     return HTMLResponse(
+#         status_code=HTTP_404_NOT_FOUND,
+#         content="""<html>
+#             <head>
+#                 <title>Not Found</title>
+#             </head>
+#             <body>
+#                 <h1>404 Not Found</h1>
+#                 <p>The requested URL was not found on the server.</p>
+#             </body>
+#         </html>""",
+#     )
 
 
-app.mount("/", StaticFiles(directory="./build", html=True), name="static")
+# app.mount("/", StaticFiles(directory="./build", html=True), name="static")
 
 
 #-------------------------------Serve Static Files END-------------------------------------#
