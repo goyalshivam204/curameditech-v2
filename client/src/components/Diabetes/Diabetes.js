@@ -23,7 +23,11 @@ function Diabetes(){
         }
         // console.log(obj);
         try{
-            const response = await axios.post(process.env.REACT_APP_API_URL +"/api/diabetes",obj);
+            const response = await axios.post(process.env.REACT_APP_API_URL + "/api/diabetes", obj, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                }
+            });
             console.log(response.data);
             setPrediction(response.data.prediction);
             setConfidenceScore(response.data.confidenceScore);

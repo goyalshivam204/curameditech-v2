@@ -17,17 +17,25 @@
     color: var(--color-font-color-variant);
     box-shadow: 0 0 2px 2px gainsboro;
 }
-.signUp__header{
+
+.signUp__header {
     grid-column: 1/3;
 }
 
-.signUp__form{
-    display: grid;
-    grid-template-columns: auto auto;
-    column-gap: 10px;
+.signUp__form {
+    /* display: grid; */
+    display: flex;
+    /* min-width: 400px; */
+    flex-direction: column;
+    /* grid-template-columns: 1; */
+    /* column-gap: 10px; */
     row-gap: 10px;
 }
 
+.signUp__names{
+    display: flex;
+    column-gap: 10px;
+}
 
 .signUp__btn {
     grid-column: 1/3;
@@ -39,5 +47,3 @@
     background-color: var(--color-bg-2);
     color: var(--color-font-color)
 }
-
-

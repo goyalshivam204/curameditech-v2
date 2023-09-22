@@ -32,7 +32,8 @@ const userSchema = new mongoose.Schema({
     },
     age: {
         type: Number,
-        required: [true, "Please, Enter Your age"]
+        default: null
+        // required: [true, "Please, Enter Your age"]
     },
     password: {
         type: String,

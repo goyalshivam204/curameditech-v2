@@ -104,37 +104,52 @@ exports.loginUser = async (req, res, next) => {
             return;
         }
 
-
+        
         const token = user.getJWTToken();
 
-        // option for cookie
-        console.log(process.env.COOKIE_EXPIRE)
-        const options = {
-            expires: new Date(
-                Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 1000
-            ),
-            httpOnly: true
-        }
+        // // option for cookie
+        // console.log(process.env.COOKIE_EXPIRE)
+        // const options = {
+        //     expires: new Date(
+        //         Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 1000
+        //     ),
+        //     httpOnly: true,
+        //     // sameSite: 'None'
+        // }
 
-        res.status(200).cookie('token', token, options).json({
+        // res.status(200).cookie('token', token, options).json({
+        //     success: true,
+        //     message: "logged in successfully",
+        //     token: token
+        // });
+        console.log(token);
+        res.status(200).json({
             success: true,
             message: "logged in successfully",
-        });
+            token: token
+        })
     } catch (err) {
         res.status(err.statusCode || 400).json({ success: false, message: err.message });
     }
 };
 
 
+// no, need of when client exist.
 exports.logout = async (req, res, next) => {
     try {
-        res.cookie("token", null, {
-            expires: new Date(Date.now()),
-            httpOnly: true
-        })
+        // res.cookie("token", null, {
+        //     expires: new Date(Date.now()),
+        //     httpOnly: true
+        // })
+        // res.status(200).json({
+        //     success: true,
+        //     message: "Logged Out"
+        // })
+
         res.status(200).json({
             success: true,
-            message: "Logged Out"
+            message: "Logged Out",
+            token: null
         })
     } catch (err) {
         res.status(err.statusCode || 400).json({ success: false, message: err.message });

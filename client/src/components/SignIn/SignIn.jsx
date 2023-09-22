@@ -1,28 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
+import Cookies from "js-cookie";
+import {config} from "../../config/axios"
 import "./signIn.css";
 import { useNavigate } from 'react-router-dom';
+// import {LazyLoadImage} from "react-lazy-load-image-component";
 import axios from 'axios';
 import DoctorImg from "../../assets/doctor.jpg"
+import { AuthContext } from '../../App';
 const SignIn = () => {
   const navigate = useNavigate();
+  const {checkToken} = useContext(AuthContext);
   const onSubmitHandler = async (e) => {
-    // navigate("/")
+   
     e.preventDefault();
     // alert("submit")
-    const reqBody = {
-     
-      username: e.target.username.value,
+    const userData = {
+      email: e.target.email.value,
       password: e.target.password.value
     }
-    console.log(reqBody);
-    // const response = await axios.post("",e.target);
+    const response = await axios.post(process.env.REACT_APP_API_URL + "/api/auth/login", userData, config);
+    localStorage.setItem('token',response.data.token);
+    checkToken();
+    navigate("/");
+
+
   }
   const [imageLoaded,setImageLoaded] = useState(false);
   return (
     <div className='signIn'>
       <div className='signIn__boxShadow'>
         <div className='signIn__left'>
-          <img className='signIn__img' onLoad={() => {setImageLoaded(true)}} src={DoctorImg} alt="" />
+          <img className='signIn__img' width="auto" height="400px" onLoad={() => {setImageLoaded(true)}} src={DoctorImg} alt="" />
+          {/* <LazyLoadImage
+            className="signIn__img"
+            width="auto"
+            height="400px"
+            src={DoctorImg}
+          /> */}
         </div>
         {imageLoaded? 
         <div className="signIn__right">
@@ -32,8 +46,8 @@ const SignIn = () => {
             </div>
 
             <div className="signIn__item">
-              {/* <label className='signIn__label' htmlFor='username' >Username: </label> */}
-              <input className='signIn__input' required placeholder='username' type="text" name="username" id="username" />
+              {/* <label className='signIn__label' htmlFor='email' >Email: </label> */}
+              <input className='signIn__input' required placeholder='email' type="email" name="email" id="email" />
             </div>
             <div className="signIn__item">
               {/* <label className='signIn__label ' htmlFor='password' ></label> */}

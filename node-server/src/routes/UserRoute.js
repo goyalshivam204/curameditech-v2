@@ -4,7 +4,7 @@ const { getAllUsers, getUserByID, createUser, updateUserByID, deleteUserByID, lo
 const usersRouter = express.Router();
 
 usersRouter.route("/users").get(getAllUsers);
-usersRouter.route("/users/:id").get(getUserByID);
+usersRouter.route("/users/:id").get(isAuthenticated,getUserByID);
 usersRouter.route("/users/:id").put(updateUserByID);
 usersRouter.route("/users/:id").delete(deleteUserByID);
 

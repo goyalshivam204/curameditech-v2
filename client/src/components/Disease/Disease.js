@@ -7,6 +7,7 @@ import "./disease.css"
 import MyProgressBar from '../MyProgressBar/MyProgressBar.js';
 import axios from 'axios';
 import { padStart } from 'lodash';
+// import {config} from "../../config/axios.js"
 
 // to allows headers and cookie on the server also.
 axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
@@ -54,7 +55,11 @@ function Disease() {
         })
         // console.log(selected);
         try{
-            const response = await axios.post(process.env.REACT_APP_API_URL + "/api/predict",postBody)
+            const response = await axios.post(process.env.REACT_APP_API_URL + "/api/predict", postBody, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                }
+            });
             setPredictedDisease(response.data[1]);
             setConfidenceScore(response.data[0]);
         }catch(err){
