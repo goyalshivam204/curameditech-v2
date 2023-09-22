@@ -1,4 +1,4 @@
-const { config } = require( "../axios");
+const { config } = require( "../config/axios");
 const axios = require('axios');
 
 

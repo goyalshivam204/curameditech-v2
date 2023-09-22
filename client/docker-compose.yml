@@ -19,5 +19,5 @@ networks:
   network_cura:
     external: true
 
-volumes:
-  node_modules:
+# volumes:
+#   node_modules:

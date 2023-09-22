@@ -1,10 +1,14 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
 const app = express();
+const morgan = require('morgan');
 const cors = require('cors');
+const userRouter = require("./src/routes/UserRoute");
+
 const PORT = process.env.PORT || 3000;
 
-const connectDatabase = require("./src/connectDatabase");
+const connectDatabase = require("./src/config/connectDatabase");
 const bodyParser = require('body-parser');
 const pythonRouter = require("./src/routes/pythonRoute");
 
@@ -23,19 +27,19 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 
+// Cookie parsing
+app.use(cookieParser());
+
+// middleware
+app.use(morgan('combined'));
+
+
 // Load environment variables from .env file
 dotenv.config();
 
 
 // Connect to database
-// connectDatabase();
-
-
-
-
-
-
-
+connectDatabase();
 
 
 app.get('/', (req, res) => {
@@ -43,6 +47,8 @@ app.get('/', (req, res) => {
 });
 
 app.use("/api",pythonRouter);
+app.use("/api",userRouter);
+// app.use("/api",);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
