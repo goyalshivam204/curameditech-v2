@@ -48,6 +48,9 @@ const Navbar = () => {
                         Sign In
                     </NavLink>   
                 </>:<>
+                    <NavLink to="/account" className={({ isActive }) => isActive ? "nav__link__active" : "nav__link"}>
+                        Account
+                    </NavLink>
                     <NavLink onClick={signoutHandler} to="/" className="nav__link">
                         Sign Out
                     </NavLink>   

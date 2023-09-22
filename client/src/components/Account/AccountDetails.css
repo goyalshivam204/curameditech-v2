@@ -1,0 +1,66 @@
+.account-details {
+    padding: 16px;
+    max-width: 600px;
+    margin: auto;
+}
+
+.account-details h1 {
+    font-size: 24px;
+    margin-bottom: 16px;
+}
+
+.account-details .form-group {
+    margin-bottom: 8px;
+}
+
+.account-details label {
+    font-size: 16px;
+}
+
+.account-details input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #808080;
+}
+
+.account-details-button {
+    margin-top: 16px;
+}
+
+.account-details-button button {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.account-details-button button:hover {
+    background-color: #eee;
+}
+
+.account-details-button button:active {
+    background-color: #ddd;
+}
+
+.account-details-button .Link {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+}
+
+.account-details-button .Link:hover {
+    background-color: #eee;
+}
+
+.account-details-button .Link:active {
+    background-color: #ddd;
+}

@@ -1,6 +1,48 @@
 const User = require("../models/userModel");
 
 
+// Account START 
+exports.getUserByAuth = async(req,res) =>{
+    try{
+        res.status(200).json({ success: true, message: "Account Details Retrived!!!", data: req.user });
+    }catch(err){
+        res.status(err.statusCode || 400).json({ success: false, message: err.message });
+    }
+}
+
+
+// Authenticated Route, Please Make sure to add is Authenticated...
+exports.updatePasswordByAuth = async(req,res) => {
+
+    try{
+        const { currentPassword, newPassword, confirmPassword } = req.body;
+        console.log(req.body);
+        console.log(currentPassword, newPassword, confirmPassword);
+        const user = await User.findOne({ email: req.user.email }).select("+password");
+
+        const isPasswordMatched = await user.comparePassword(currentPassword);
+
+        if (!isPasswordMatched) {
+            res.status(200).json({ success: false, message: "Invalid old password" });
+            return;
+        }
+
+        if (newPassword !== confirmPassword) {
+            res.status(200).json({ success: false, message: "new Password not same as confirm Password" });
+            return;
+        }
+        // user.update({password: confirmPassword});
+        user.password = newPassword;
+        await user.save();
+
+        res.status(200).json({ success: true, message: "Password Updated!!" })
+    }catch(err){
+        res.status(err.statusCode || 400).json({ success: false, message: err.message });
+    }
+    
+}
+// Account END 
+
 // This API used to retrieve all the users from the database.
 exports.getAllUsers = async (req, res) => {
     try {

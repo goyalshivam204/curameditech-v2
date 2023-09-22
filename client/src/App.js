@@ -12,6 +12,8 @@ import SignIn from "./components/SignIn/SignIn";
 import Footer from "./components/Footer/Footer";
 import Diabetes from "./components/Diabetes/Diabetes";
 import Heart from "./components/Heart/Heart";
+import Account from "./components/Account/Account";
+import UpdatePassword from "./components/Account/UpdatePassword";
 
 import LoadImage from "./assets/spinner3.gif"
 
@@ -21,9 +23,9 @@ function App() {
 
   const [loading,setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin,setIsAdmin] = useState(false);
 
   const checkToken = async () => {
-    console.log("calling");
     const  response = await axios.get(process.env.REACT_APP_API_URL + "/api/auth/isAuthenticated", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -31,14 +33,33 @@ function App() {
     });
     // axios only pass status code 200
     // so i am changing my node server for not authorized case.
-    console.log(response);
+    // console.log(response);
     const success = response.data.success;
     if (success) {
       setIsLoggedIn(true);
-      console.log("logged");
+      // console.log("logged");
     } else{
       setIsLoggedIn(false);
-      console.log("not logged");
+      // console.log("not logged");
+    }
+  }
+
+  const checkAdmin = async () => {
+    const response = await axios.get(process.env.REACT_APP_API_URL + "/api/auth/isAuthorized", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }
+    });
+    // axios only pass status code 200
+    // so i am changing my node server for not authorized case.
+    // console.log(response);
+    const success = response.data.success;
+    if (success) {
+      setIsLoggedIn(true);
+      // console.log("logged");
+    } else {
+      setIsLoggedIn(false);
+      // console.log("not logged");
     }
   }
 
@@ -58,7 +79,10 @@ function App() {
         setIsLoggedIn,
         loading,
         setLoading,
-        checkToken
+        isAdmin,
+        setIsAdmin,
+        checkToken,
+        checkAdmin
       }}
     >
       <BrowserRouter>
@@ -70,6 +94,8 @@ function App() {
           <Route path ="/disease_prediction" element={<Disease/>} />
           <Route path="/sign_up" element={<SignUp />} />
           <Route path="/sign_in" element={<SignIn />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/update" element={<UpdatePassword />} />
         </Routes>
         <Footer/>
       </BrowserRouter> 
