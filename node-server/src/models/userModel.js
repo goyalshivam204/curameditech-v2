@@ -18,13 +18,13 @@ const userSchema = new mongoose.Schema({
         unique: [true, "This email is already registered"],
         validate: [validator.isEmail, "Please, Enter a valid email"]
     },
-    first_name: {
+    firstname: {
         type: String,
         required: [true, "Please, Enter Your First Name"],
         maxLength: [15, "First Name can't exceed 15 character"],
         minLength: [3, "First Should have more than 3 character"]
     },
-    last_name: {
+    lastname: {
         type: String,
         required: [true, "Please, Enter Your Last Name"],
         maxLength: [15, "Last Name can't exceed 15 character"],

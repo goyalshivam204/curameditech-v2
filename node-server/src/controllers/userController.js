@@ -47,7 +47,7 @@ exports.createUser = async (req, res) => {
 exports.updateUserByID = async (req, res) => {
     try {
         const id = req.params.id;
-        const {first_name,last_name,age} = req.body;
+        const {firstname,lastname,age} = req.body;
         const userData = {first_name,last_name,age};
         const user = await User.findByIdAndUpdate(id, userData);
         if (!user) {

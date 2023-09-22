@@ -32,12 +32,12 @@ const Navbar = () => {
                     Heart
                 </NavLink>
               
-                {/* <NavLink to="/sign_up" className={({ isActive }) => isActive ? "nav__link__active" : "nav__link"}>
+                <NavLink to="/sign_up" className={({ isActive }) => isActive ? "nav__link__active" : "nav__link"}>
                     Sign Up
-                </NavLink> */}
-                {/* <NavLink to="/sign_in" className={({ isActive }) => isActive ? "nav__link__active" : "nav__link"}>
+                </NavLink>
+                <NavLink to="/sign_in" className={({ isActive }) => isActive ? "nav__link__active" : "nav__link"}>
                     Sign In
-                </NavLink>                            */}
+                </NavLink>                           
             </div>
         </nav>
     )

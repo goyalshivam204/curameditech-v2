@@ -2,27 +2,33 @@ import React, { useState } from 'react';
 import "./signUp.css";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import {config} from '../../config/axios'
 import DoctorImg from "../../assets/doctor.jpg"
 const SignUp = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const onSubmitHandler = async (e) => {
     // navigate("/")
     e.preventDefault();
     // alert("submit")
-    const reqBody = {
+    console.log(e.target);
+    const userData = {
       email: e.target.email.value,
       username: e.target.username.value,
-      password: e.target.password.value
+      firstname: e.target.firstname.value, 
+      lastname: e.target.lastname.value,
+      password: e.target.password.value,
+      age: e.target.age.value
     }
-    console.log(reqBody);
-    // const response = await axios.post("",e.target);
+    console.log(userData);
+    const response = await axios.post(process.env.REACT_APP_API_URL + "/api/register",userData,config);
+    console.log(response);
   }
   const [imageLoaded, setImageLoaded] = useState(false);
   return (
     <div className='signUp'>
       <div className='signUp__boxShadow'>
        
-        <form className='signUp__form'>
+        <form className='signUp__form' onSubmit={(e) => { onSubmitHandler(e) }} >
            <h2 className="signUp__header center">Sign Up</h2>
           <div className="signUp__item">
             <input className='signIn__input' required placeholder='username' type="text" name="username" id="username" />
@@ -39,9 +45,11 @@ const SignUp = () => {
           <div className="signUp__item">
             <input className='signIn__input' required placeholder='last name' type="text" name="lastname" id="lastname" />
           </div>
-        
+          <div className="signUp__item">
+            <input className='signIn__input' required placeholder='age' type="number" name="age" id="age" />
+          </div>
        
-          <button type='submit' className="signUp__btn">
+          <button type='submit' className="signUp__btn" >
             Submit
           </button>
         </form>
