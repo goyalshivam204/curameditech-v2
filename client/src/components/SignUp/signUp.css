@@ -9,7 +9,7 @@
 
 .signUp__boxShadow {
     margin: 2rem 0rem;
-    padding: 1rem;
+    padding: 1rem 2rem;
     display: grid;
     grid-template-columns: auto;
     border-radius: 10px 10px 10px 10px;
@@ -30,12 +30,12 @@
     flex-direction: column;
     /* grid-template-columns: 1; */
     /* column-gap: 10px; */
-    row-gap: 10px;
+    row-gap: 15px;
 }
 
 .signUp__names{
     display: flex;
-    column-gap: 10px;
+    column-gap: 15px;
 }
 
 .signUp__btn {

@@ -40,8 +40,8 @@ function Diabetes(){
 
     function SelectYesNo(props){
         return(
-            <select required className="diabetes__input" name = {props.name} id = {props.id}>
-                <option value="" selected disabled hidden>Select YES or NO</option>
+            <select defaultValue={'DEFAULT'} required className="diabetes__input" name={props.name} id={props.id} >
+                <option value="DEFAULT" disabled>Select YES or NO</option>
                 <option value="1">Yes</option>
                 <option value="0">No</option>
             </select>
@@ -64,8 +64,8 @@ function Diabetes(){
                     </div>
                     <div className="diabetes__item">
                         <label className='diabetes__label' htmlFor='Gender' >Gender </label>
-                        <select required className="diabetes__input" name = "Gender" id="Gender">
-                            <option value="" selected disabled hidden>Select Gender</option>
+                        <select defaultValue={'DEFAULT'} required className="diabetes__input" name = "Gender" id="Gender">
+                            <option value="DEFAULT" disabled>Select Gender</option>
                             <option value = "1">Male</option>
                             <option value="0">Female</option>
                         </select>  

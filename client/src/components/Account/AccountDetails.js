@@ -1,18 +1,21 @@
 import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../../App';
 import { Link,useNavigate } from 'react-router-dom';
-import './AccountDetails.css';
+import {toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+// import './AccountDetails.css';
+
 
 const AccountDetails = ({ username,email,firstname,lastname }) => {
     const navigate  = useNavigate();
     const {checkAdmin,isAdmin} = useContext(AuthContext);
 
-    useEffect(()=>{
-        checkAdmin();
-    },[]);
+    // useEffect(()=>{
+    //     checkAdmin();
+    // },[]);
     return (
         <div className="account-details">
-            <h1>Account Details</h1>
+            <h1 onClick={()=>{toast.success("working!!!")}}>Account Details</h1>
             <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <input
@@ -57,11 +60,11 @@ const AccountDetails = ({ username,email,firstname,lastname }) => {
                 <Link to="/account/update">Update Password</Link>
             </div> */}
             <div className="account-details-button">
-                <button type="button" onClick={() => navigate('/update')}>Go to Update Password</button>
+                <button type="button" onClick={() => navigate('/account/password')}>Go to Update Password</button>
             </div>
             {isAdmin?<>
                 <div className="account-details-button">
-                    <button type="button" onClick={() => navigate('/admin')}>Go to Admin Dashboard</button>
+                    <button type="button" onClick={() => navigate('/account/admin')}>Go to Admin Dashboard</button>
                 </div>
             </>:<></>}
             

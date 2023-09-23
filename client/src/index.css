@@ -47,7 +47,6 @@ body{
     /* background-image: linear-gradient(to right, var(--color-light-black),transparent); */
     /* background-repeat: repeat; */
     /* background-color: var(--color-light-blue); */
-  
 }
 body::-webkit-scrollbar {
     /* display: none; */

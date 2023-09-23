@@ -5,11 +5,11 @@ import "./signIn.css";
 import { useNavigate } from 'react-router-dom';
 // import {LazyLoadImage} from "react-lazy-load-image-component";
 import axios from 'axios';
-import DoctorImg from "../../assets/doctor.jpg"
+// import DoctorImg from "../../assets/doctor.jpg"
 import { AuthContext } from '../../App';
 const SignIn = () => {
   const navigate = useNavigate();
-  const {checkToken} = useContext(AuthContext);
+  const {checkToken,DoctorImg} = useContext(AuthContext);
   const onSubmitHandler = async (e) => {
    
     e.preventDefault();
@@ -22,15 +22,16 @@ const SignIn = () => {
     localStorage.setItem('token',response.data.token);
     checkToken();
     navigate("/");
-
+    
 
   }
-  const [imageLoaded,setImageLoaded] = useState(false);
+  // const [imageLoaded,setImageLoaded] = useState(true);
   return (
     <div className='signIn'>
       <div className='signIn__boxShadow'>
         <div className='signIn__left'>
-          <img className='signIn__img' width="auto" height="400px" onLoad={() => {setImageLoaded(true)}} src={DoctorImg} alt="" />
+          {/* <img className='signIn__img' width="auto" onLoad={()=>{setImageLoaded(true)}} height="400px" src={DoctorImg} alt="" /> */}
+          <img className='signIn__img' width="auto" height="400px" src={DoctorImg} alt="" />
           {/* <LazyLoadImage
             className="signIn__img"
             width="auto"
@@ -38,7 +39,7 @@ const SignIn = () => {
             src={DoctorImg}
           /> */}
         </div>
-        {imageLoaded? 
+        {true? 
         <div className="signIn__right">
           <form onSubmit={onSubmitHandler} className='signIn__form'>
             <div className="signIn__item">

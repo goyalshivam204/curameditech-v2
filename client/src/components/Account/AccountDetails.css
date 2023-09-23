@@ -2,6 +2,7 @@
     padding: 16px;
     max-width: 600px;
     margin: auto;
+    color: var(--color-font-color-variant);
 }
 
 .account-details h1 {
@@ -34,12 +35,15 @@
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    background-color: #fff;
+    /* background-color: #fff; */
+    background-color: var(--color-bg);
+    color: var(--color-font-color);
     cursor: pointer;
 }
 
 .account-details-button button:hover {
-    background-color: #eee;
+    /* background-color: #eee; */
+    background-color: var(--color-bg-2);
 }
 
 .account-details-button button:active {

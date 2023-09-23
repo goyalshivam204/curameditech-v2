@@ -2,7 +2,8 @@ import { Router, Route, BrowserRouter, Routes } from "react-router-dom";
 import {useState,useEffect,createContext} from "react";
 import axios from "axios";
 // import {config} from "./config/axios"
-
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Disease from "./components/Disease/Disease";
 import Navbar from "./components/Navbar/Navbar";
@@ -14,8 +15,12 @@ import Diabetes from "./components/Diabetes/Diabetes";
 import Heart from "./components/Heart/Heart";
 import Account from "./components/Account/Account";
 import UpdatePassword from "./components/Account/UpdatePassword";
+import Admin from "./components/Account/Admin/Admin";
 
-import LoadImage from "./assets/spinner3.gif"
+
+import LoadImage from "./assets/spinner4.gif"
+import DoctorImg from "./assets/doctor.jpg"
+
 
 export const AuthContext = createContext();
 
@@ -24,6 +29,7 @@ function App() {
   const [loading,setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin,setIsAdmin] = useState(false);
+  const [userDetails, setUserDetails] = useState(null);
 
   const checkToken = async () => {
     const  response = await axios.get(process.env.REACT_APP_API_URL + "/api/auth/isAuthenticated", {
@@ -55,20 +61,48 @@ function App() {
     // console.log(response);
     const success = response.data.success;
     if (success) {
-      setIsLoggedIn(true);
+      setIsAdmin(true);
       // console.log("logged");
     } else {
-      setIsLoggedIn(false);
+      setIsAdmin(false);
       // console.log("not logged");
     }
   }
 
+
+  const getUser = async ()=>{
+      const response = await axios.get(process.env.REACT_APP_API_URL + "/api/account/details", {
+          headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+      });
+      console.log(response.data);
+      setUserDetails(()=>{
+          return {
+              ...response.data.data
+          }
+      })
+  }
+ 
   useEffect(() => {
     checkToken();
   }, []);
 
+  useEffect(()=>{
+    if(isLoggedIn){
+      checkAdmin();
+    }else{
+      setIsAdmin(false);
+    }
+  },[isLoggedIn]);
+
+
   useEffect(() => {
-    
+    if(isLoggedIn){
+      getUser();
+    }else{
+      setUserDetails(null);
+    }
   }, [isLoggedIn]);
 
 
@@ -77,12 +111,15 @@ function App() {
       value = {{
         isLoggedIn,
         setIsLoggedIn,
-        loading,
-        setLoading,
+        // loading,
+        // setLoading,
         isAdmin,
         setIsAdmin,
+        userDetails,
+        setUserDetails,
         checkToken,
-        checkAdmin
+        checkAdmin,
+        DoctorImg
       }}
     >
       <BrowserRouter>
@@ -95,9 +132,12 @@ function App() {
           <Route path="/sign_up" element={<SignUp />} />
           <Route path="/sign_in" element={<SignIn />} />
           <Route path="/account" element={<Account />} />
-          <Route path="/update" element={<UpdatePassword />} />
+          <Route path="/account/password" element={<UpdatePassword />}/>
+          <Route path="/account/admin" element={<Admin />}/>
+          
         </Routes>
         <Footer/>
+        <ToastContainer position='top-center' autoClose={1000} />
       </BrowserRouter> 
     </AuthContext.Provider>
   );

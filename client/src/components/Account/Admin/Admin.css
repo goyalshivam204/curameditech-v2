@@ -1,0 +1,24 @@
+/* AdminDashboard.js */
+.Admin{
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+/* UserList.js */
+.UserList {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #f8f8f8;
+}
+
+.UserList h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.UserList ul {
+    list-style-type: none;
+    padding: 0;
+}
+

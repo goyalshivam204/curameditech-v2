@@ -36,22 +36,22 @@ function Heart(){
         
     }
 
-    function SelectYesNo(props){
-        return(
-            <select required className="heart__input" name = {props.name} id = {props.id}>
-                {/* <option value="" selected disabled hidden>Select YES or NO</option> */}
-                <option value="1">Yes</option>
-                <option value="0">No</option>
-            </select>
-        );
-    }
+    // function SelectYesNo(props){
+    //     return(
+    //         <select required className="heart__input" name = {props.name} id = {props.id}>
+    //             {/* <option value="" selected disabled hidden>Select YES or NO</option> */}
+    //             <option value="1">Yes</option>
+    //             <option value="0">No</option>
+    //         </select>
+    //     );
+    // }
 
     function SelectInputWithLabel(props){
         return (
             <div className="heart__item">
                 <label className='heart__label' htmlFor={props.id} >{props.text} </label>
-                <select required className="heart__input" name = {props.id} id={props.id}>
-                    <option value="" selected disabled hidden>Select YES or NO</option>
+                <select defaultValue={'DEFAULT'}  required className="heart__input" name = {props.id} id={props.id}>
+                    <option value="DEFAULT" disabled>Select YES or NO</option>
                     <option value = "1">Yes</option>
                     <option value="0">No</option>
                 </select>  
@@ -96,16 +96,16 @@ function Heart(){
                     </div>
                     <div className="heart__item">
                         <label className='heart__label' htmlFor='sex' >Gender </label>
-                        <select required className="heart__input" name = "sex" id="sex">
-                            <option value="" selected disabled hidden>Select Gender</option>
+                        <select defaultValue={'DEFAULT'} required className="heart__input" name = "sex" id="sex">
+                            <option value="DEFAULT" disabled>Select Gender</option>
                             <option value = "1">Male</option>
                             <option value="0">Female</option>
                         </select>  
                     </div>
                     {
-                        data.map((ele)=>{
+                        data.map((ele,key)=>{
                             return (
-                                <SelectInputWithLabel id = {ele.id} name = {ele.name} text={ele.text}/>
+                                <SelectInputWithLabel id = {ele.id} key={key} name = {ele.name} text={ele.text}/>
                             )
                         })
                     }

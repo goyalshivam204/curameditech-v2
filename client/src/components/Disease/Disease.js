@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { AiOutlineCheckCircle } from "react-icons/ai";
-import { ToastContainer, toast } from 'react-toastify';
+// import { AiOutlineCheckCircle } from "react-icons/ai";
+// import { ToastContainer, toast } from 'react-toastify';
+import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {obj} from './data.js';
 import "./disease.css"
 import MyProgressBar from '../MyProgressBar/MyProgressBar.js';
+import LoadImage from '../LoadImage/LoadImage.js';
 import axios from 'axios';
-import { padStart } from 'lodash';
+// import { padStart } from 'lodash';
 // import {config} from "../../config/axios.js"
 
 // to allows headers and cookie on the server also.
@@ -20,7 +22,7 @@ function Disease() {
     const [selected,setSelected] = useState([]);
     const [predictedDisease,setPredictedDisease] = useState(null);
     const [confidenceScore,setConfidenceScore] = useState(null); 
-
+    const [loading,setLoading] = useState(false);
 
     const fwd_value = (str_value) =>{
         let str = str_value;
@@ -36,7 +38,7 @@ function Disease() {
     }
     
     const predictDisease = async (e)=>{
-
+        setLoading(true);
         if(selected.length < 5){
             toast.error("Please, Select at least 5 symptoms")
             return;
@@ -62,8 +64,10 @@ function Disease() {
             });
             setPredictedDisease(response.data[1]);
             setConfidenceScore(response.data[0]);
+            setLoading(false);
         }catch(err){
             console.log(err);
+            setLoading(false);
         }
         
     }
@@ -154,17 +158,19 @@ function Disease() {
                 </div>
             </section>
             <section className='disease__section disease__section__four'>
-               
-
+                {loading?<>
+                    <LoadImage width={100}/>
+                </>:<>
                 <div className="predicted_disease">
-
                     {predictedDisease ? <h3 className='center'>Predicted disease: {predictedDisease}</h3> : ""}
                     {confidenceScore ? <h3 className='center'>Confidence Score: <MyProgressBar progress={(confidenceScore * 100).toFixed(2)} /></h3> : ""}
                 </div>
+                </>}
+               
             </section>
           
 
-            <ToastContainer position='top-center' autoClose = {1000}/>
+            {/* <ToastContainer position='top-center' autoClose = {1000}/> */}
         </div>
     )
 }
