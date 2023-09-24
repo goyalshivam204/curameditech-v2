@@ -25,7 +25,7 @@ const upload=multer({
 })
 
 const { isAuthenticated, isAuthorized } = require('../controllers/authController');
-const { getAllUsers, getUserByID, updatePasswordByAuth,createUser, updateUserByID, deleteUserByID, loginUser, logout, getUserByAuth, getImageByAuth, getImageByID } = require('../controllers/userController');
+const { getAllUsers, getUserByID, updatePasswordByAuth,createUser, updateUserByID, deleteUserByID, loginUser, logout, getUserByAuth, getImageByAuth, getImageByID, updateUserByAuth } = require('../controllers/userController');
 const usersRouter = express.Router();
 
 // usersRouter.route("/images").get(getImageByAuth);
@@ -40,7 +40,8 @@ usersRouter.route("/image/:id").get(getImageByID);
 
 // Account details
 usersRouter.route("/account/details").get(isAuthenticated,getUserByAuth);
-usersRouter.route("/account/update").put(isAuthenticated,updatePasswordByAuth);
+usersRouter.route("/account/update/password").put(isAuthenticated,updatePasswordByAuth);
+usersRouter.route("/account/update/profile").put(isAuthenticated, upload.single('photo'), updateUserByAuth);
 
 // for showing authentication requirements
 usersRouter.route("/register").post(upload.single('photo'),createUser);

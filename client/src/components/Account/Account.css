@@ -1,11 +1,16 @@
 .account{
-  
+  /* display: flex; */
+  /* flex-direction: column; */
 }
+
+
 
 .account > div{
     max-width: 600px;
+    padding: 0px 10px;
     margin: 30px auto;
 }
+
 
 .account-button {
     margin-top: 16px;

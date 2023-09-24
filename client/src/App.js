@@ -2,7 +2,7 @@ import { Router, Route, BrowserRouter, Routes } from "react-router-dom";
 import {useState,useEffect,createContext} from "react";
 import axios from "axios";
 // import {config} from "./config/axios"
-import { ToastContainer} from 'react-toastify';
+import { ToastContainer ,toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Disease from "./components/Disease/Disease";
@@ -32,56 +32,70 @@ function App() {
   const [userDetails, setUserDetails] = useState(null);
 
   const checkToken = async () => {
-    const  response = await axios.get(process.env.REACT_APP_API_URL + "/api/auth/isAuthenticated", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+
+    try{
+      const response = await axios.get(process.env.REACT_APP_API_URL + "/api/auth/isAuthenticated", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        }
+      });
+      // axios only pass status code 200
+      // so i am changing my node server for not authorized case.
+      // console.log(response);
+      const success = response.data.success;
+      if(success){
+        setIsLoggedIn(true);
       }
-    });
-    // axios only pass status code 200
-    // so i am changing my node server for not authorized case.
-    // console.log(response);
-    const success = response.data.success;
-    if (success) {
-      setIsLoggedIn(true);
-      // console.log("logged");
-    } else{
+    }catch(err){
       setIsLoggedIn(false);
-      // console.log("not logged");
+      const message = err.response.data.message ? err.response.data.message : err.message;
+      toast.error(message)
     }
+    
   }
 
   const checkAdmin = async () => {
-    const response = await axios.get(process.env.REACT_APP_API_URL + "/api/auth/isAuthorized", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      }
-    });
-    // axios only pass status code 200
-    // so i am changing my node server for not authorized case.
-    // console.log(response);
-    const success = response.data.success;
-    if (success) {
-      setIsAdmin(true);
-      // console.log("logged");
-    } else {
+    try{
+      const response = await axios.get(process.env.REACT_APP_API_URL + "/api/auth/isAuthorized", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        }
+      });
+      // axios only pass status code 200
+      // so i am changing my node server for not authorized case.
+      // console.log(response);
+      const success = response.data.success;
+      if (success) {
+        setIsAdmin(true);
+        // console.log("logged");
+      } 
+    }catch(err){
+      const message = err.response.data.message ? err.response.data.message : err.message;
+      // toast.error(message);
       setIsAdmin(false);
-      // console.log("not logged");
     }
   }
 
 
   const getUser = async ()=>{
-      const response = await axios.get(process.env.REACT_APP_API_URL + "/api/account/details", {
+
+      try{
+        const response = await axios.get(process.env.REACT_APP_API_URL + "/api/account/details", {
           headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`
+            Authorization: `Bearer ${localStorage.getItem('token')}`
           }
-      });
-      console.log(response.data);
-      setUserDetails(()=>{
+        });
+        console.log(response.data);
+        setUserDetails(() => {
           return {
-              ...response.data.data
+            ...response.data.data
           }
-      })
+        })
+      }catch(err){
+        const message = err.response.data.message ? err.response.data.message : err.message;
+        // toast.error(message)
+      }
+     
   }
  
   useEffect(() => {

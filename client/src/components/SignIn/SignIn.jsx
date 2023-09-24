@@ -7,9 +7,11 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 // import DoctorImg from "../../assets/doctor.jpg"
 import { AuthContext } from '../../App';
+import { toast } from 'react-toastify';
 const SignIn = () => {
   const navigate = useNavigate();
   const {checkToken,DoctorImg} = useContext(AuthContext);
+
   const onSubmitHandler = async (e) => {
    
     e.preventDefault();
@@ -18,10 +20,17 @@ const SignIn = () => {
       email: e.target.email.value,
       password: e.target.password.value
     }
-    const response = await axios.post(process.env.REACT_APP_API_URL + "/api/auth/login", userData, config);
-    localStorage.setItem('token',response.data.token);
-    checkToken();
-    navigate("/");
+    try{
+      const response = await axios.post(process.env.REACT_APP_API_URL + "/api/auth/login", userData, config);
+      localStorage.setItem('token', response.data.token);
+      checkToken();
+      toast.success("Login, Successfully!!");
+      navigate("/");
+    }catch(err){
+      const message = err.response.data.message ? err.response.data.message: err.message;
+      toast.error(message);
+    }
+   
     
 
   }

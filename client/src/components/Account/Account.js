@@ -7,14 +7,14 @@ import UserProfile from './UserProfile/UserProfile';
 import "./Account.css";
 
 const Account = ()=>{
-    const {userDetails,isAdmin } = useContext(AuthContext);
+    const {userDetails,isAdmin, setUserDetails } = useContext(AuthContext);
     const navigate = useNavigate();
 
    
     return (<div className='account'>
         {userDetails?<>
-            <div>
-                <UserProfile user = {{...userDetails}} />
+            <div className='user-profile-container'>
+                <UserProfile user = {userDetails}  setUser = {setUserDetails}/>
             </div>
             <div className="account-button">
                 <button type="button" onClick={() => navigate('/account/password')}>Go to Update Password</button>

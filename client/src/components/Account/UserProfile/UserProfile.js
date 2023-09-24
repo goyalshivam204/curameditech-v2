@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import {toast} from 'react-toastify';
 import  "./UserProfile.css";
+import CropperDemo from "../CropperDemo/CropperDemo"
 
-function UserProfile({ user }) {
+function UserProfile({ user, setUser }) {
     const [isEditing, setIsEditing] = useState(false);
     const formData = new FormData();
-    console.log(user);
+    // console.log(user);
     const [userData, setUserData] = useState({
         username: user.username,
         email: user.email,
@@ -15,7 +16,7 @@ function UserProfile({ user }) {
         role: user.role,
         photo: null
     });
-
+    const [urlPhoto,setUrlPhoto] = useState(null);
 
     const handleEditToggle = () => {
         setIsEditing(!isEditing);
@@ -31,8 +32,14 @@ function UserProfile({ user }) {
             return;
         }
 
+        // Added for preview of image
+        if(inputType === 'photo'){
+            setUrlPhoto(URL.createObjectURL(e.target.files[0]));
+        }
+
         const value = inputType === 'photo' ? e.target.files[0] : e.target.value;
-        console.log(value);
+        // console.log(value);
+
         setUserData((oldUserData) => {
             let newObj = {
                 ...oldUserData,
@@ -60,14 +67,16 @@ function UserProfile({ user }) {
             for(let key of formData.entries()){
                 console.log(key[0] + ', ' + key[1]);
             }
-            const response = await axios.put(process.env.REACT_APP_API_URL + `/api/users/${user._id}`, formData, {
+            const response = await axios.put(process.env.REACT_APP_API_URL + `/api/account/update/profile`, formData, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`,
                     "content-type": 'multipart/form-data'
                     // "content-type": 'application/json'
                 }
             });
-           
+            setUser((oldUser)=>{
+                return response.data.data
+            });
             setIsEditing(false);
             toast.success("Updated Successfully!!!");
         } catch (err) {
@@ -99,11 +108,11 @@ function UserProfile({ user }) {
 
 
     return (
-        <li className="UserProfile">
+        <div className="UserProfile">
             <div className="user-info">
                 <img src={`${process.env.REACT_APP_API_URL}/api/image/${user._id}`} alt="Profile" className="profile-image" />
                 {isEditing ? (
-                    <form className="edit-user-details">
+                    <div className="edit-user-details">
                         <label>
                             Username:
                             <input
@@ -171,8 +180,17 @@ function UserProfile({ user }) {
                                 onChange={onChangeHandle("photo")}
                             />
                         </label>
+                        {urlPhoto?<>
+                            <div className="preview-photo-container">
+                                <img src={urlPhoto} alt="" className="preview-phot" />
+                            </div>
+                            <div>
+                                <CropperDemo imageSrc = {urlPhoto}/>
+                            </div>
+                        </>:<></>}
+                       
                         {/* <button onClick={onSubmitHandler}>Update</button> */}
-                    </form>
+                    </div>
                 ) : (
                     <div className="user-details">
                         <strong>{user.username}</strong> - {user.firstname} {user.lastname} ({user.email})
@@ -188,7 +206,7 @@ function UserProfile({ user }) {
                     Save Changes
                 </button>
             </div>
-        </li>
+        </div>
     );
 }
 

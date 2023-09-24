@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {toast} from "react-toastify";
 import axios from 'axios';
 import "./UpdatePassword.css";
 
@@ -15,7 +16,7 @@ const UpdatePassword = () => {
         // Validate the passwords
 
         if (newPassword !== confirmPassword) {
-            alert('New password and confirm password do not match');
+            toast.error('New password and confirm password do not match')
             return;
         }
 
@@ -27,7 +28,7 @@ const UpdatePassword = () => {
             newPassword: e.target.newPassword.value,
             confirmPassword: e.target.confirmPassword.value
         }
-        const response = await axios.put(process.env.REACT_APP_API_URL+"/api/account/update", postData, {
+        const response = await axios.put(process.env.REACT_APP_API_URL+"/api/account/update/password", postData, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }

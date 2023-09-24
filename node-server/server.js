@@ -20,6 +20,7 @@ const corsOptions = {
 }
 app.use(cors(corsOptions));
 
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 
@@ -46,7 +47,7 @@ app.get('/', (req, res) => {
     res.send('Server !!');
 });
 
-app.use("/api",pythonRouter);
+app.use("/api", pythonRouter);
 app.use("/api",userRouter);
 // app.use("/api",);
 

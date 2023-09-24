@@ -56,19 +56,20 @@ exports.updatePasswordByAuth = async(req,res) => {
 
     try{
         const { currentPassword, newPassword, confirmPassword } = req.body;
-        console.log(req.body);
-        console.log(currentPassword, newPassword, confirmPassword);
+        // console.log(req.body);
+        // console.log(currentPassword, newPassword, confirmPassword);
+
         const user = await User.findOne({ email: req.user.email }).select("+password");
 
         const isPasswordMatched = await user.comparePassword(currentPassword);
 
         if (!isPasswordMatched) {
-            res.status(200).json({ success: false, message: "Invalid old password" });
+            res.status(401).json({ success: false, message: "Invalid old password" });
             return;
         }
 
         if (newPassword !== confirmPassword) {
-            res.status(200).json({ success: false, message: "new Password not same as confirm Password" });
+            res.status(401).json({ success: false, message: "new Password not same as confirm Password" });
             return;
         }
         // user.update({password: confirmPassword});
@@ -143,9 +144,25 @@ exports.updateUserByID = async (req, res) => {
     } catch (err) {
         res.status(err.statusCode || 400).json({ success: false, message: err.message });
     }
+}
 
 
-
+// This API used to update details of a given user (By Auth)
+exports.updateUserByAuth = async (req, res) => {
+    try {
+       
+        let userData = req.body; 
+        if (req.file) {
+            const photo = req.file.filename;
+            userData = { ...userData, photo };
+        }
+        console.log(userData);
+        const user = await User.findByIdAndUpdate(req.user._id, userData,{new: true});
+        console.log(user);
+        res.status(200).json({ success: true, message: "Profile Updated Successfully", data: user });
+    } catch (err) {
+        res.status(err.statusCode || 400).json({ success: false, message: err.message });
+    }
 }
 
 // This API used to delete the given user (identified by id)
@@ -200,20 +217,20 @@ exports.loginUser = async (req, res, next) => {
 
         // checking if user has given password and email both
         if (!email || !password) {
-            res.status(400).json({ success: false, message: 'please Enter email or password' });
+            res.status(401).json({ success: false, message: 'please Enter email or password' });
             return;
         }
         const user = await User.findOne({ email }).select("+password");
 
         if (!user) {
-            res.status(400).json({ success: false, message: "Invalid email or password" });
+            res.status(401).json({ success: false, message: "Invalid email or password" });
             return;
         }
 
         const isPasswordMatched = await user.comparePassword(password);
 
         if (!isPasswordMatched) {
-            res.status(400).json({ success: false, message: "Invalid email or password" });
+            res.status(401).json({ success: false, message: "Invalid email or password" });
             return;
         }
 
