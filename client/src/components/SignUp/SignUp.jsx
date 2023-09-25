@@ -87,7 +87,7 @@ const SignUp = () => {
            <h2 className="signUp__header center">Sign Up</h2>
 
           <div className="signUp__item">
-            < input className='signIn__input' 
+            < input className='signUp__input' 
               required 
               placeholder='username' 
               type="text" 
@@ -98,7 +98,7 @@ const SignUp = () => {
             />
           </div>
           <div className="signUp__item">
-            <input className='signIn__input' 
+            <input className='signUp__input' 
               required 
               placeholder='email' 
               type="email" 
@@ -109,7 +109,7 @@ const SignUp = () => {
             />
           </div>
           <div className="signUp__item">
-            <input className='signIn__input' 
+            <input className='signUp__input' 
               required placeholder='first name' 
               type="text" 
               name="firstname" 
@@ -119,7 +119,7 @@ const SignUp = () => {
             />
           </div>
           <div className="signUp__item">
-            <input className='signIn__input' 
+            <input className='signUp__input' 
               required 
               placeholder='last name' 
               type="text" 
@@ -131,7 +131,7 @@ const SignUp = () => {
           </div>
           
           <div className="signUp__item">
-            <input className='signIn__input' 
+            <input className='signUp__input' 
               required type="password" 
               placeholder='password' 
               name="password" 
@@ -142,11 +142,11 @@ const SignUp = () => {
           </div>
           
           {/* <div className="signUp__item">
-            <input className='signIn__input' required placeholder='age' type="number" name="age" id="age" />
+            <input className='signUp__input' required placeholder='age' type="number" name="age" id="age" />
           </div>
         */}
           {/* <div className="signUp__item">
-            <input className='signIn__input' 
+            <input className='signUp__input' 
               type="file" 
               name="photo" 
               accept="image/*" 
