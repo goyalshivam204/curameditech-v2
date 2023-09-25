@@ -25,7 +25,20 @@ const upload=multer({
 })
 
 const { isAuthenticated, isAuthorized } = require('../controllers/authController');
-const { getAllUsers, getUserByID, updatePasswordByAuth,createUser, updateUserByID, deleteUserByID, loginUser, logout, getUserByAuth, getImageByAuth, getImageByID, updateUserByAuth } = require('../controllers/userController');
+const { getAllUsers, 
+        getUserByID,
+        updatePasswordByAuth,
+        createUser,
+        updateUserByID,
+        deleteUserByID,
+        loginUser,
+        logout,
+        getUserByAuth,
+        getImageByAuth,
+        getImageByID,
+        updateUserByAuth,
+        getImageByImageID
+    } = require('../controllers/userController');
 const usersRouter = express.Router();
 
 // usersRouter.route("/images").get(getImageByAuth);
@@ -35,7 +48,8 @@ usersRouter.route("/users/:id").get(isAuthenticated, isAuthorized(["admin"]), ge
 usersRouter.route("/users/:id").put(isAuthenticated, isAuthorized(["admin"]), upload.single('photo'), updateUserByID);
 usersRouter.route("/users/:id").delete(isAuthenticated, isAuthorized(["admin"]), deleteUserByID);
 // usersRouter.route("/image/:id").get(isAuthenticated, isAuthorized(["admin"]),getImageByID);
-usersRouter.route("/image/:id").get(getImageByID);
+// usersRouter.route("/image/:id").get(getImageByID);
+usersRouter.route("/image/:imageID").get(getImageByImageID);
 
 
 // Account details

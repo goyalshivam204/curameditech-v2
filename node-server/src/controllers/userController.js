@@ -178,6 +178,20 @@ exports.getImageByID = async (req, res) => {
     }catch(err){
         res.json({success: false, message: err.message});
     }
+}
+
+
+exports.getImageByImageID = async (req, res) => {
+    try{
+        const imageID = req.params.imageID;
+        // if i want to add auth...
+        // const user = await User.findBy(id);
+        // const user = await User.findOne({ photo: imageID })
+        res.sendFile(imageID, { root: "./uploads" });
+        // res.sendFile('defaultProfile.png', { root: "./uploads" });
+    }catch(err){
+        res.json({success: false, message: err.message});
+    }
   
 }
 

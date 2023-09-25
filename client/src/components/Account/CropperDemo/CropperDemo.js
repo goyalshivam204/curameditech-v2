@@ -6,7 +6,7 @@ import "./CropperDemo.css";
 const defaultSrc =
     "https://raw.githubusercontent.com/roadmanfong/react-cropper/master/example/img/child.jpg";
 
-export const CropperDemo = () => {
+export const CropperDemo = ({imageSrc,extImageFile}) => {
     const [image, setImage] = useState(defaultSrc);
     const [cropData, setCropData] = useState("#");
     const cropperRef = useRef(null);
@@ -14,7 +14,7 @@ export const CropperDemo = () => {
         e.preventDefault();
         let files;
         if (e.dataTransfer) {
-            files = e.dataTransfer.files;
+            files = e.dataTransfer.files;   
         } else if (e.target) {
             files = e.target.files;
         }
@@ -41,8 +41,10 @@ export const CropperDemo = () => {
                 <Cropper
                     style={{ height: 400, width: "100%" }}
                     initialAspectRatio={1}
+                    aspectRatio={1}
                     preview=".img-preview"
-                    src={image}
+                    // src={image}
+                    src = {imageSrc}
                     ref={cropperRef}
                     viewMode={1}
                     guides={true}
