@@ -41,9 +41,11 @@ export const ImageCropper = forwardRef(({ userData,setUserData },ref) => {
    
     return (
         <div>
-            <div style={{ width: "100%" }}>
+            <div className = "image-cropper-container">
                 <Cropper
-                    style={{ height: "100%", width: 400 }}
+                    style={{ 
+                        maxWidth: "200px"
+                    }}
                     initialAspectRatio={1}
                     aspectRatio={1}
                     preview=".img-preview"

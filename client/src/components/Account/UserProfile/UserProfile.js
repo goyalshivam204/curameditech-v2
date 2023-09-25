@@ -26,6 +26,15 @@ function UserProfile({ user, setUser }) {
     // const [croppedPhoto,setCroppedPhoto] = useState(null);
 
     const handleEditToggle = () => {
+        setUserData({
+            username: user.username,
+            email: user.email,
+            firstname: user.firstname,
+            lastname: user.lastname,
+            role: user.role,
+            photo: null,
+            croppedPhoto: null
+        })
         setIsEditing(!isEditing);
     };
     
@@ -178,13 +187,17 @@ function UserProfile({ user, setUser }) {
        
         
     }
-
     
 
     return (
         <div className="UserProfile">
             <div className="user-info">
-                <img src={`${process.env.REACT_APP_API_URL}/api/image/${user.photo}`} alt="Profile" className="profile-image" />
+                <div>
+                    <h2>User Profile</h2>
+                </div>
+                <div className="profile-image-conta">
+                    <img src={`${process.env.REACT_APP_API_URL}/api/image/${user.photo}`} alt="Profile" className="profile-image" />
+                </div>
                 {isEditing ? (
                     <div className="edit-user-details">
                         <label>
@@ -218,7 +231,7 @@ function UserProfile({ user, setUser }) {
                                 value={userData.role}
                                 onChange={onChangeHandle("role")}
                             >
-                                <option value="patient">Patient</option>
+                                <option value="user">User</option>
                                 <option value="admin">Admin</option>
                             </select>
                         </label>

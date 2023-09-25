@@ -28,12 +28,12 @@ function Diabetes(){
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 }
             });
-            console.log(response.data);
+            // console.log(response.data);
             setPrediction(response.data.prediction);
             setConfidenceScore(response.data.confidenceScore);
         }catch(err){
             toast.error("Some Error Occurred!");
-            console.log(err);
+            // console.log(err);
         }
         
     }

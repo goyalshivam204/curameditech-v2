@@ -1,6 +1,7 @@
 import React, { useState ,useContext} from 'react';
 import {AuthContext} from "../../App";
-import "./signUp.css";
+// import "./signUp.css";
+import "./SignUp.css";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -26,7 +27,7 @@ const SignUp = () => {
   const onChangeHandle = (inputType) => (e) =>{
     
     if (inputType === 'photo'  && e.target.files[0].size > 1*1024*1024){
-      console.log(e.target.files[0]);
+      // console.log(e.target.files[0]);
       // alert();
       toast.error("File Size should be less then 2MB...");
       e.target.value = "";
@@ -50,10 +51,12 @@ const SignUp = () => {
       formData.set("firstname",userData.firstname);
       formData.set("lastname",userData.lastname);
       formData.set("password",userData.password);
-      console.log(userData.photo.name);
-      const extension = userData.photo.name.split('.').pop();
+
       // console.log("extension",extension);
-      formData.set("photo",userData.photo,userData.username + "." + extension);
+      if(userData.photo){
+        const extension = userData.photo.name.split('.').pop();
+        formData.set("photo", userData.photo, userData.username + "." + extension);
+      }
       const response = await axios.post(process.env.REACT_APP_API_URL + "/api/register", formData, {
         headers:{
           "Authorization": `Bearer ${localStorage.getItem('token')}`,
@@ -64,7 +67,7 @@ const SignUp = () => {
       toast.success("Sign Up, SuccessFully!!!");
       localStorage.setItem('token', response.data.token);
       checkToken();
-      navigate("/"); // In testing
+      navigate("/"); 
     }catch(err){
       // toast.error(err.response.data.message);
       const message = err.response.data.message ? err.response.data.message : err.message;
@@ -105,7 +108,7 @@ const SignUp = () => {
               value={userData.email}
             />
           </div>
-          <div className="signUp__item signUp__names">
+          <div className="signUp__item">
             <input className='signIn__input' 
               required placeholder='first name' 
               type="text" 
@@ -114,6 +117,8 @@ const SignUp = () => {
               onChange={onChangeHandle("firstname")}
               value={userData.firstname}
             />
+          </div>
+          <div className="signUp__item">
             <input className='signIn__input' 
               required 
               placeholder='last name' 
@@ -140,7 +145,7 @@ const SignUp = () => {
             <input className='signIn__input' required placeholder='age' type="number" name="age" id="age" />
           </div>
         */}
-          <div className="signUp__item">
+          {/* <div className="signUp__item">
             <input className='signIn__input' 
               type="file" 
               name="photo" 
@@ -148,7 +153,7 @@ const SignUp = () => {
               id="photo" 
               onChange={onChangeHandle('photo')}
             />
-          </div>
+          </div> */}
           <button type='submit' className="signUp__btn" >
             Submit
           </button>

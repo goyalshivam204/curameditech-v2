@@ -49,10 +49,10 @@ function Disease() {
             postBody[field] = 1;
         });
 
-        console.log("keys: ")
+        // console.log("keys: ")
         Object.keys(postBody).forEach((key)=>{
             if(postBody[key] === 1){
-                console.log(key);
+                // console.log(key);
             }
         })
         // console.log(selected);
@@ -66,7 +66,7 @@ function Disease() {
             setConfidenceScore(response.data[0]);
             setLoading(false);
         }catch(err){
-            console.log(err);
+            // console.log(err);
             setLoading(false);
         }
         

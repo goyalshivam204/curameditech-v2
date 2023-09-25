@@ -128,14 +128,14 @@ exports.updateUserByID = async (req, res) => {
             return;
         }
         let userData = req.body; 
-        console.log(req.body);
+        // console.log(req.body);
         if (req.file) {
             const photo = req.file.filename;
             userData = { ...userData, photo };
         }
         // console.log(userData);
         const user = await User.findByIdAndUpdate(id, userData,{new: true});
-        console.log(user);
+        // console.log(user);
         if (!user) {
             res.status(200).json({ success: false, message: "User with given id not found!" });
         } else {
@@ -156,9 +156,9 @@ exports.updateUserByAuth = async (req, res) => {
             const photo = req.file.filename;
             userData = { ...userData, photo };
         }
-        console.log(userData);
+        // console.log(userData);
         const user = await User.findByIdAndUpdate(req.user._id, userData,{new: true});
-        console.log(user);
+        // console.log(user);
         res.status(200).json({ success: true, message: "Profile Updated Successfully", data: user });
     } catch (err) {
         res.status(err.statusCode || 400).json({ success: false, message: err.message });

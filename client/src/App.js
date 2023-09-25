@@ -49,7 +49,7 @@ function App() {
     }catch(err){
       setIsLoggedIn(false);
       const message = err.response.data.message ? err.response.data.message : err.message;
-      toast.error(message)
+      // toast.error(message)
     }
     
   }

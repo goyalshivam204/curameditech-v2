@@ -5,17 +5,22 @@
     padding: 10px;
     margin-bottom: 10px;
     background-color: #fff;
+    color: var(--color-font-color-variant);
+    
 }
 
 .UserProfile .user-info {
     display: flex;
+    flex-direction: column;
     align-items: center;
     margin-bottom: 10px;
+    display: flex;
 }
 
 .UserProfile .profile-image {
     max-width: 100px;
     border-radius: 50%;
+    margin-top: 20px;
     margin-right: 10px;
 }
 
@@ -29,8 +34,8 @@
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
-    /* border: 1px solid #ccc; */
-    border: 1px solid var(--color-bg-variant);
+    border: 1px solid #ccc;
+    /* border: 1px solid var(--color-bg-variant); */
 }
 
 .UserProfile .edit-user-details button {
@@ -51,6 +56,12 @@
     margin-right: 10px;
 }
 
+
+.UserProfile .user-actions{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .UserProfile .user-actions button {
     margin-right: 10px;
     padding: 5px 10px;
@@ -63,8 +74,8 @@
 }
 
 .UserProfile .user-actions button:disabled {
-    /* background-color: #ccc; */
-    background-color: var(--color-bg-variant);
+    background-color: #ccc;
+    /* background-color: var(--color-bg-variant); */
 }
 
 .UserProfile .user-actions button:hover {

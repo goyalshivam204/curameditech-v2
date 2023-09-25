@@ -19,19 +19,19 @@ function Heart(){
         for(var i = 0; i<elements.length;i++){
             obj[elements[i].name] = Number(elements[i].value);
         }
-        console.log(obj);
+        // console.log(obj);
         try{
             const response = await axios.post(process.env.REACT_APP_API_URL + "/api/heart", obj, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 }
             });
-            console.log(response.data);
+            // console.log(response.data);
             setPrediction(response.data.prediction);
             setRisk(response.data.risk);
         }catch(err){
             toast.error("Some Error Occurred!");
-            console.log(err);
+            // console.log(err);
         }
         
     }

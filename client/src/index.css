@@ -17,7 +17,9 @@
 
     --color-white: #fff;
     /* --color-white-2: #DFF6FF; */
-    --color-white-2: #ebeced;
+    /* --color-white-2: #ebeced; */
+    --color-white-2: white;
+
     --color-black-2: #06283D;
     --color-teal-2: #256D85;
     --color-blue-2: #47B5FF;
@@ -26,13 +28,16 @@
     --color-light-teal: #256D85;
     --color-light-blue: #47B5FF;
     /* --color-dark-white: #DFF6FF; */
-    --color-dark-white: #ebeced;
+    /* --color-dark-white: #ebeced; */
+    --color-dark-white: white;
+
     --color-bg: #256D85;
     --color-bg-2: #06283D;
     --color-font-color: #fff;
     /* --color-bg-variant: #fff; */
     /* --color-bg-variant: #DFF6FF;; */
-    --color-bg-variant: #ebeced;
+    /* --color-bg-variant: #ebeced; */
+    --color-bg-variant: white;
     --color-font-color-variant: #256D85;
     --color-font-color-variant-2: #06283D;
     --color-bg-btn: #06283D;

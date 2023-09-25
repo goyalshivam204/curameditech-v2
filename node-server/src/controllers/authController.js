@@ -7,7 +7,7 @@ exports.isAuthenticated = async (req, res, next) => {
         // console.log("cookie",req.cookies);
         // console.log("token",token);
         const token = req.headers.authorization.split(' ')[1];
-        console.log("token",token);
+        // console.log("token",token);
 
 
         if (token == "null" || !token || token === undefined) {

@@ -14,7 +14,7 @@ function Admin() {
       }
     });
     setUsers(response.data.data);
-    console.log(response.data.data);
+    // console.log(response.data.data);
   }
   useEffect(() => {
     getAllUsers();
@@ -22,7 +22,7 @@ function Admin() {
 
   return (
     <div className='Admin'>
-      <h1>Admin Dashboard</h1>
+      <h1 >Admin Dashboard</h1>
       {users?<>
         <UserList users={users} setUsers = {setUsers}/>
       </>:<></>}

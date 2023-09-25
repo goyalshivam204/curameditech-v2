@@ -2,14 +2,21 @@
 .Admin{
     font-family: Arial, sans-serif;
     margin: 20px;
+    color: var(--color-font-color-variant);
+}
+
+.Admin > h1{
+    text-align: center;
 }
 
 /* UserList.js */
 .UserList {
     border: 1px solid #ccc;
     padding: 10px;
-    margin-top: 20px;
+    margin: 20px auto;
     background-color: #f8f8f8;
+    max-width: 600px;
+
 }
 
 .UserList h2 {
