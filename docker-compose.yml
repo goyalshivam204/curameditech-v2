@@ -1,0 +1,45 @@
+version: '3.9'
+
+services:
+  mongodb:
+    image: mongo:4.4.9
+    container_name: cura-mongodb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+    networks:
+      - cura-network
+  python-server:
+    build:
+      context: ./python-server 
+    container_name: cura-python-server
+    networks:
+      - cura-network
+
+  node-server:
+    build:
+      context: ./node-server 
+    container_name: cura-node-server
+    networks:
+      - cura-network
+    depends_on:
+      - mongodb
+      - python-server
+
+ 
+
+  client:
+    build:
+      context: ./client # Path to your client (React or similar) Dockerfile
+    container_name: client
+    ports:
+      - "80:80"
+    networks:
+      - cura-network
+    depends_on:
+      - node-server
+
+networks:
+  cura-network:
+    driver: bridge
