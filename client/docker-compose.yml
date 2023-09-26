@@ -1,18 +1,14 @@
 services:
-  client-service:
-    build: 
+  nginx:
+    build:
       context: .
       dockerfile: Dockerfile
-    container_name: client
-    image: client:v1
+    container_name: nginx
+    image: nginx
+    ports:
+      - "80:80"
     networks:
       - network_cura
-    volumes:
-      - .:/usr/src/app
-    # command: sh -c "cd /usr/src/app"
-    command: "tail -f /dev/null"
-    ports:
-      - "8000:8000"
    
 
 networks:

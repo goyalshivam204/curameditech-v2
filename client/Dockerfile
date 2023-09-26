@@ -1,21 +1,38 @@
-# Use the official node image to build the React app
-FROM node:18.13.0
+# Use an official Node.js image as the base image for building the React app
+FROM node:18.13.0 as builder
 
+# Set the working directory inside the container
+WORKDIR /app
 
-# WORKDIR /install
-# COPY package*.json /install
-# RUN npm install 
-# ENV NODE_PATH=/install/node_modules
-# Set the working directory
-WORKDIR /usr/src/app
+# Copy the package.json and package-lock.json files to the container
+COPY package.json package-lock.json ./
 
-# Copy package files and install dependencies
-# COPY package*.json ./
-# RUN npm install
+# Install dependencies
+RUN npm install
 
-# Copy the rest of the client application files
-# COPY . .
+# Copy the entire project directory to the container
+COPY . .
 
+# Generate a production build of the React app
+RUN npm run build
 
-# this will only run if we don't command in dockerfile.
-# CMD [ "npm","start"]
+# Use a separate Nginx image to serve the production build
+FROM nginx:alpine
+
+# Set the working directory to /usr/share/nginx/html
+WORKDIR /usr/share/nginx/html
+
+# Remove the default Nginx welcome page
+RUN rm -rf ./*
+
+# Copy the production build files from the builder stage
+COPY --from=builder /app/build .
+
+# Copy the custom Nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose port 80 for incoming HTTP requests
+EXPOSE 80
+
+# Start Nginx when the container starts
+CMD ["nginx", "-g", "daemon off;"]
