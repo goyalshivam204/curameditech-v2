@@ -13,12 +13,13 @@ const bodyParser = require('body-parser');
 const pythonRouter = require("./src/routes/pythonRoute");
 
 // Allows cors.
-const corsOptions = {
-    origin: 'http://localhost:8000',
-    credentials: true,            //access-control-allow-credentials:true
-    optionSuccessStatus: 200
-}
-app.use(cors(corsOptions));
+// const corsOptions = {
+//     origin: 'http://localhost:8000',
+//     // origin: 'http://192.168.56.20',
+//     credentials: true,            //access-control-allow-credentials:true
+//     optionSuccessStatus: 200
+// }
+// app.use(cors(corsOptions));
 
 
 // parse application/x-www-form-urlencoded
