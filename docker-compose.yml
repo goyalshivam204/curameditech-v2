@@ -31,8 +31,8 @@ services:
 
   client:
     build:
-      context: ./client # Path to your client (React or similar) Dockerfile
-    container_name: client
+      context: ./cura-client # Path to your client (React or similar) Dockerfile
+    container_name: cura-client
     ports:
       - "80:80"
     networks:
