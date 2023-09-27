@@ -1,0 +1,55 @@
+.account{
+  /* display: flex; */
+  /* flex-direction: column; */
+}
+
+
+
+.account > div{
+    max-width: 600px;
+    padding: 0px 10px;
+    margin: 30px auto;
+}
+
+.account-button {
+    margin-top: 16px;
+}
+
+.account-button button {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    /* background-color: #fff; */
+    background-color: var(--color-bg);
+    color: var(--color-font-color);
+    cursor: pointer;
+}
+
+.account-button button:hover {
+    /* background-color: #eee; */
+    background-color: var(--color-bg-2);
+}
+
+.account-button button:active {
+    background-color: #ddd;
+}
+
+.account-button .Link {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+}
+
+.account-button .Link:hover {
+    background-color: #eee;
+}
+
+.account-button .Link:active {
+    background-color: #ddd;
+}

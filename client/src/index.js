@@ -6,7 +6,14 @@ import "./index.css"
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <div class="overlay-container">
+      <div class="content">
+        <App />
+      </div>
+      <div class="custom-scrollbar">
+        <div class="scrollbar-thumb"></div>
+      </div>
+    </div>
   </React.StrictMode>
 );
 

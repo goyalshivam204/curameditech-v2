@@ -19,35 +19,39 @@ function Heart(){
         for(var i = 0; i<elements.length;i++){
             obj[elements[i].name] = Number(elements[i].value);
         }
-        console.log(obj);
+        // console.log(obj);
         try{
-            const response = await axios.post( "/api/heart",obj);
-            console.log(response.data);
+            const response = await axios.post(process.env.REACT_APP_API_URL + "/api/heart", obj, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                }
+            });
+            // console.log(response.data);
             setPrediction(response.data.prediction);
             setRisk(response.data.risk);
         }catch(err){
             toast.error("Some Error Occurred!");
-            console.log(err);
+            // console.log(err);
         }
         
     }
 
-    function SelectYesNo(props){
-        return(
-            <select required className="heart__input" name = {props.name} id = {props.id}>
-                {/* <option value="" selected disabled hidden>Select YES or NO</option> */}
-                <option value="1">Yes</option>
-                <option value="0">No</option>
-            </select>
-        );
-    }
+    // function SelectYesNo(props){
+    //     return(
+    //         <select required className="heart__input" name = {props.name} id = {props.id}>
+    //             {/* <option value="" selected disabled hidden>Select YES or NO</option> */}
+    //             <option value="1">Yes</option>
+    //             <option value="0">No</option>
+    //         </select>
+    //     );
+    // }
 
     function SelectInputWithLabel(props){
         return (
             <div className="heart__item">
                 <label className='heart__label' htmlFor={props.id} >{props.text} </label>
-                <select required className="heart__input" name = {props.id} id={props.id}>
-                    <option value="" selected disabled hidden>Select YES or NO</option>
+                <select defaultValue={'DEFAULT'}  required className="heart__input" name = {props.id} id={props.id}>
+                    <option value="DEFAULT" disabled>Select YES or NO</option>
                     <option value = "1">Yes</option>
                     <option value="0">No</option>
                 </select>  
@@ -92,16 +96,16 @@ function Heart(){
                     </div>
                     <div className="heart__item">
                         <label className='heart__label' htmlFor='sex' >Gender </label>
-                        <select required className="heart__input" name = "sex" id="sex">
-                            <option value="" selected disabled hidden>Select Gender</option>
+                        <select defaultValue={'DEFAULT'} required className="heart__input" name = "sex" id="sex">
+                            <option value="DEFAULT" disabled>Select Gender</option>
                             <option value = "1">Male</option>
                             <option value="0">Female</option>
                         </select>  
                     </div>
                     {
-                        data.map((ele)=>{
+                        data.map((ele,key)=>{
                             return (
-                                <SelectInputWithLabel id = {ele.id} name = {ele.name} text={ele.text}/>
+                                <SelectInputWithLabel id = {ele.id} key={key} name = {ele.name} text={ele.text}/>
                             )
                         })
                     }

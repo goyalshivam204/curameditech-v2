@@ -1,0 +1,16 @@
+.box {
+    display: inline-block;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.img-preview {
+    overflow: hidden;
+}
+.image-cropper-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* width: 200px; */
+}
+
